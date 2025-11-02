@@ -13,8 +13,15 @@ const Form: React.FC<FormProps> = ({ dataForm, setDataForm }) => {
       ...pr,
       [id]: value,
     }));
-    localStorage.setItem("initialState", JSON.stringify(dataForm));
   };
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      localStorage.setItem("initialState", JSON.stringify(dataForm));
+    }, 200);
+
+    return () => clearInterval(timeoutId);
+  }, [dataForm]);
 
   useEffect(() => {
     const saveLocalElement = localStorage.getItem("initialState");
