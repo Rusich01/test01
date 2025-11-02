@@ -13,11 +13,15 @@ const Form: React.FC<FormProps> = ({ dataForm, setDataForm }) => {
       ...pr,
       [id]: value,
     }));
+    localStorage.setItem("initialState", JSON.stringify(dataForm));
   };
 
   useEffect(() => {
-    localStorage.setItem("initialState", JSON.stringify(dataForm));
-  }, [dataForm]);
+    const saveLocalElement = localStorage.getItem("initialState");
+    if (saveLocalElement && saveLocalElement.length > 0) {
+      setDataForm(JSON.parse(saveLocalElement));
+    }
+  }, []);
 
   const submitForm = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
