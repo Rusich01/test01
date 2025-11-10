@@ -18,7 +18,6 @@ const App = () => {
   };
   const [dataForm, setDataForm] = useState(() => checInitialState());
 
-  console.log(dataForm);
   return (
     <div className=" flex gap-2.5 justify-center items-center mt-8">
       <Form dataForm={dataForm} setDataForm={setDataForm} />

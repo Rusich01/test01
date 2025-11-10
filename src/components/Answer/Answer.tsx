@@ -3,7 +3,7 @@ interface FormProps {
   dataForm: initState;
 }
 
-const Answer: React.FC<FormProps> = ({ dataForm }: any) => {
+const Answer: React.FC<FormProps> = ({ dataForm }: FormProps) => {
   return (
     <div>
       <p>Name:{dataForm.name}</p>

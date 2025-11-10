@@ -7,32 +7,21 @@ interface FormProps {
   dataForm: initState;
   setDataForm: React.Dispatch<React.SetStateAction<initState>>;
 }
-const Form: React.FC<FormProps> = ({ dataForm, setDataForm }) => {
+const Form: React.FC<FormProps> = ({ dataForm, setDataForm }: FormProps) => {
   const initialLocalState = "initialLocalState";
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
-    setDataForm((prev: any) => {
+    setDataForm((prev: initState): initState => {
       const updated = { ...prev, [id]: value };
       localStorage.setItem(initialLocalState, JSON.stringify(updated));
       return updated;
     });
   };
 
-  const checkLocalStore = () => {
-    if (localStorage.length >= 1) {
-      const timeoutId = setTimeout(() => {
-        localStorage.setItem(initialLocalState, JSON.stringify(dataForm));
-      }, 200);
-
-      return () => clearTimeout(timeoutId);
-    }
-  };
-
   useEffect(() => {
     const saveLocalElement = localStorage.getItem(initialLocalState);
-    //
-    if (saveLocalElement && saveLocalElement.length > 0) {
+    if (saveLocalElement) {
       setDataForm(JSON.parse(saveLocalElement));
     }
   }, []);
@@ -43,10 +32,6 @@ const Form: React.FC<FormProps> = ({ dataForm, setDataForm }) => {
     setDataForm({ email: "", name: "", surname: "" });
     localStorage.removeItem(initialLocalState);
   };
-
-  useEffect(() => {
-    checkLocalStore();
-  }, [dataForm]);
 
   return (
     <form
